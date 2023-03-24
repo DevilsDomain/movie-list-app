@@ -2,6 +2,7 @@ import { gql } from 'graphql-request';
 import { MY_EMAIL_KEY } from '../constants/email';
 import { client } from '@/lib/client';
 import MovieList from '@/components/MovieList';
+import Form from '@/components/Form';
 
 const GET_MOVIE_BY_TITLE = gql`
 query GetMovieLists($email: String!) {
@@ -26,6 +27,7 @@ export default async function Home() {
           <MovieList movie={movie} key={movieIndex} />
         );
       })}
+      <Form />
     </div>
   );
 }
