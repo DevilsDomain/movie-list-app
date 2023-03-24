@@ -1,13 +1,31 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from './page.module.css'
+import { gql } from 'graphql-request';
+import { MY_EMAIL_KEY } from '../constants/email';
+import { client } from '@/lib/client';
 
-const inter = Inter({ subsets: ['latin'] })
+const GET_MOVIE_BY_TITLE = gql`
+query SearchMovieByTitle($title: String!) {
+  searchMovieByTitle(title: $title) {
+    Title
+  }
+}
+`;
 
-export default function Home() {
+export default async function Home() {
+  const {  searchMovieByTitle } = await client.request<{  searchMovieByTitle}>(GET_MOVIE_BY_TITLE, {
+    title: "Pirate",
+  });
+
+  console.log( searchMovieByTitle);
+
   return (
-    <main className={styles.main}>
-      <p>Hello</p>
-    </main>
-  )
+    <div>
+      {searchMovieByTitle.map((movie, movieIndex) => {
+        return(
+          <h1 key={movieIndex} className="text-3xl font-bold underline">
+            {movie.Title}
+          </h1>
+        );
+      })}
+    </div>
+  );
 }
