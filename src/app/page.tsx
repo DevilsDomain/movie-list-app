@@ -1,6 +1,7 @@
 import { gql } from 'graphql-request';
 import { MY_EMAIL_KEY } from '../constants/email';
 import { client } from '@/lib/client';
+import MovieList from '@/components/MovieList';
 
 const GET_MOVIE_BY_TITLE = gql`
 query GetMovieLists($email: String!) {
@@ -22,9 +23,7 @@ export default async function Home() {
     <div>
       {getMovieLists.map((movie, movieIndex) => {
         return(
-          <h1 key={movieIndex} className="text-3xl font-bold">
-            {movie.name}
-          </h1>
+          <MovieList movie={movie} key={movieIndex} />
         );
       })}
     </div>
