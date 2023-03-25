@@ -1,5 +1,5 @@
 'use client';
-
+import React from 'react'
 import { client } from '@/lib/client';
 import { gql } from 'graphql-request';
 import { MovieList } from '@/components/MyLists';
@@ -19,7 +19,9 @@ type CreateListProps = {
   onCreate(list: MovieList): void;
 };
 
-export const CreateList = ({ onCreate }: CreateListProps) => {
+
+function CreateList({ onCreate }: CreateListProps) {
+
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -51,4 +53,6 @@ export const CreateList = ({ onCreate }: CreateListProps) => {
       </form>
     </div>
   );
-};
+}
+
+export default CreateList

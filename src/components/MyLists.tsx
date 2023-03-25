@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { CreateList } from '@/components/CreateList';
+import CreateList from './CreateList';
 import { useState } from 'react';
 
 export type MovieList = {
