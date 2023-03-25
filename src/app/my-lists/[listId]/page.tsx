@@ -46,11 +46,14 @@ export default async function MyListPage({ params: { listId } }: MyListPageProps
   
   return (
     <div className="flex align-center justify-center p-16 sm:p-8">
-        {getMovieListItems.map((item, itemIndex) => {
+        {getMovieListItems.length !== 0 ?
+        (getMovieListItems.map((item, itemIndex) => {
             return(
                 <p key={itemIndex}>{item.movie.Title}</p>
             );
-        })}
+        })) :
+        <div>no movies in this list</div>
+        }
     </div>
   );
 }
