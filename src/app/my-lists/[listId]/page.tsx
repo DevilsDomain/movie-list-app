@@ -38,8 +38,12 @@ export default async function MyListPage({ params: { listId } }: MovieListParams
   console.log(getMovieListItems);
   
   return (
+
     <div className="flex align-center justify-center p-16 sm:p-8">
-        <Movies listId={parseInt(listId)} list={getMovieListItems}/>
+        {getMovieListItems.length !== 0 ?
+        <Movies listId={parseInt(listId)} list={getMovieListItems}/> :
+        <p>No movies in this list yet</p>
+        }
     </div>
   );
 }
