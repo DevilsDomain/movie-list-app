@@ -29,7 +29,7 @@ export const MyLists = ({ list = [] }: MyListsProps) => {
         {MovieLists.map((item) => (
           <li key={item.id}>
             <Link
-              href={item.id.toString()}
+              href={'/my-lists/'+item.id.toString()}
             >
               {item.name}
             </Link>
