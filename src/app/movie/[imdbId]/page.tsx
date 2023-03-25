@@ -39,7 +39,7 @@ query SearchMovieById($searchMovieByIdId: String!) {
 `;
 
 async function  page({ params: { imdbId } }: MovieDetailsParam) {
-  const { searchMovieById } = await client.request<{ searchMovieById: MovieDetails[] }>(GET_MOVIE_DETAILS, {
+  const { searchMovieById } = await client.request<{ searchMovieById: MovieDetails }>(GET_MOVIE_DETAILS, {
     searchMovieByIdId: imdbId,
   });
   return (
