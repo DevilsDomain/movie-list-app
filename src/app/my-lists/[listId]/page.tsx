@@ -3,26 +3,19 @@ import { client } from '@/lib/client';
 import { type } from 'os';
 import { resolve } from 'path';
 
-type MyListPageMetadata = {
+type MovieListParams = {
   params: { listId: string };
 }
 
-interface GetTodosResponse {
+interface MovieListResponse {
   desc: string;
   finished: boolean;
   id: number;
   movie: {Title:string};
 }
 
-export async function generateMetadata({ params }: MyListPageMetadata) {
-  return {
-    title: `TODO List ${params.listId}`,
-  };
-}
 
-type MyListPageProps = MyListPageMetadata;
-
-const GET_TODOS_QUERY = gql`
+const GET_MOVIE_LIST_ITEMS = gql`
 query GetMovieListItems($listId: Int!) {
     getMovieListItems(listId: $listId) {
       id
@@ -36,9 +29,9 @@ query GetMovieListItems($listId: Int!) {
 `;
 
 
-export default async function MyListPage({ params: { listId } }: MyListPageProps) {
+export default async function MyListPage({ params: { listId } }: MovieListParams) {
   // TODO fetch list from server
-  const { getMovieListItems } = await client.request<{ getMovieListItems: GetTodosResponse[] }>(GET_TODOS_QUERY, {
+  const { getMovieListItems } = await client.request<{ getMovieListItems: MovieListResponse[] }>(GET_MOVIE_LIST_ITEMS, {
     listId: parseInt(listId),
   });
 
