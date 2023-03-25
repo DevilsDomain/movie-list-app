@@ -1,10 +1,9 @@
+import { MyLists, MovieList } from '@/components/MyLists';
 import { gql } from 'graphql-request';
-import { MY_EMAIL_KEY } from '../constants/email';
 import { client } from '@/lib/client';
-import MovieList from '@/components/MovieList';
-import Form from '@/components/Form';
+import { MY_EMAIL_KEY } from '../constants/email';
 
-const GET_MOVIE_BY_TITLE = gql`
+const GET_MOVIE_LISTS = gql`
 query GetMovieLists($email: String!) {
   getMovieLists(email: $email) {
     name
@@ -14,20 +13,15 @@ query GetMovieLists($email: String!) {
 `;
 
 export default async function Home() {
-  const {  getMovieLists } = await client.request<{ getMovieLists}>(GET_MOVIE_BY_TITLE, {
+  const { getMovieLists } = await client.request<{ getMovieLists: MovieList[] }>(GET_MOVIE_LISTS, {
     email: MY_EMAIL_KEY,
   });
 
-  console.log( getMovieLists);
-
   return (
     <div>
-      {getMovieLists.map((movie, movieIndex) => {
-        return(
-          <MovieList movie={movie} key={movieIndex} />
-        );
-      })}
-      <Form />
+      <div>
+        <MyLists list={getMovieLists ?? []} />
+      </div>
     </div>
   );
 }
