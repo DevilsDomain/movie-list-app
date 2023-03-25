@@ -24,7 +24,7 @@ export const MyLists = ({ list = [] }: MyListsProps) => {
 
   return (
     <div>
-      <h1>{MovieLists.length > 0 ? 'My TODO lists' : 'No lists yet!'}</h1>
+      <h1>{MovieLists.length > 0 ? 'My lists' : 'No lists yet!'}</h1>
       <ul>
         {MovieLists.map((item) => (
           <li key={item.id}>
