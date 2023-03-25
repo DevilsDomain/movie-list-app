@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import CreateList from './CreateList';
+import Form from './Form';
 import { useState } from 'react';
 
 export type MovieList = {
@@ -36,7 +36,7 @@ export const MyLists = ({ list = [] }: MyListsProps) => {
           </li>
         ))}
       </ul>
-      <CreateList onCreate={onCreateHandler} />
+      <Form onCreate={onCreateHandler} />
     </div>
   );
 };
