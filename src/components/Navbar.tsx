@@ -3,10 +3,10 @@ import Link from 'next/link'
 
 function Navbar() {
   return (
-    <>
-        <Link href={'/'}>OML</Link>
+    <div className='p-5'>
+        <Link href={'/'} className='text-4xl font-bold	'>OML</Link>
         <p>Online Movie List</p>
-    </>
+    </div>
   )
 }
 

@@ -18,10 +18,8 @@ export default async function Home() {
   });
 
   return (
-    <div>
       <div>
         <MyLists list={getMovieLists ?? []} />
       </div>
-    </div>
   );
 }

@@ -22,16 +22,12 @@ export const MyLists = ({ list = [] }: MyListsProps) => {
   };
 
   return (
-    <div>
-      <h1>{MovieLists.length > 0 ? 'My lists' : 'No lists yet!'}</h1>
+    <div className='flex flex-col items-center'>
+      <h1 className='text-6xl	text-center underline underline-offset-2	'>{MovieLists.length > 0 ? 'My lists' : 'No lists yet!'}</h1>
       <ul>
         {MovieLists.map((item) => (
-          <li key={item.id}>
-            <Link
-              href={'/my-lists/'+item.id.toString()}
-            >
-              {item.name}
-            </Link>
+          <li key={item.id} className='bg-indigo-200 w-96 h-12	 rounded mt-5 text-center	'>
+            <Link href={'/my-lists/'+item.id.toString()} className='text-4xl		'>{item.name}</Link>
           </li>
         ))}
       </ul>

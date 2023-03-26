@@ -38,16 +38,16 @@ function CreateList({ onCreate }: CreateListProps) {
 
   return (
     <div>
-      <h2>Create new List</h2>
+      <h2 className='text-xl mt-10 underline underline-offset-2'>Create new List</h2>
       <form onSubmit={onSubmit}>
         <input
           type="text"
           id="listName"
           name="listName"
-          className="input"
+          className="	"
           placeholder="List name"
         />
-        <button type="submit">
+        <button type="submit" className='rounded-lg bg-violet-500 text-slate-50	h-8 w-36		'>
           Create List
         </button>
       </form>
