@@ -66,7 +66,6 @@ function Search({ listId }: { listId: number }) {
     ); // Change the delay time as needed
   };
 
-  console.log(searchResults);
   return (
     <div className='flex flex-col'>
       <input

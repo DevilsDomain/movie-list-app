@@ -63,14 +63,14 @@ const onAddHandler = async (imdb_id: string) => {
 
     setMovies(newMovies);
   };
-  console.log(movies);
+
   return (
     <div>
       <ul>
         {movies.map((item) => (
           <li key={item.id}>
             <div>
-                <Image src={item.movie.Poster} alt={item.movie.Title} height={100} width={70} />
+                <Image src={item.movie.Poster} alt={item.movie.Title} height={300} width={250} />
                 <Link href={'/movie/'+item.movie.imdbID}>{item.movie.Title}</Link>
                 {!item.finished && (
                 <div className="flex gap-2">

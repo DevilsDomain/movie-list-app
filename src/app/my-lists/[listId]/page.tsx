@@ -44,13 +44,17 @@ export default async function MyListPage({ params: { listId } }: MovieListParams
   
   return (
 
-    <div className="flex flex-col align-center justify-center p-16 sm:p-8">
-        <h2 className="text-5xl mb-10">List items</h2>
-        {getMovieListItems.length !== 0 ?
-        <Movies listId={parseInt(listId)} list={getMovieListItems}/> :
-        <p>No movies in this list yet</p>
-        }
-        <Search listId={parseInt(listId)}/>
+    <div className="flex flex-row gap-x-44	">
+        <div className='flex flex-col ml-40	'>
+            <h2 className="text-5xl mb-10">List items</h2>
+            {getMovieListItems.length !== 0 ?
+            <Movies listId={parseInt(listId)} list={getMovieListItems}/> :
+            <p>No movies in this list yet</p>
+            }
+        </div>
+        <div>
+            <Search listId={parseInt(listId)}/>
+        </div>
     </div>
   );
 }
