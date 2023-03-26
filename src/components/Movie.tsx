@@ -10,12 +10,13 @@ export type MovieTypes = {
   id: number;
   desc: string;
   finished: boolean;
-  movie: {Title: string};
+  movie: {
+    Title: string
+    Poster: string;
+    imdbID: string;
+
+  };
   imdb_id: string;
-  imdbID: string;
-  Title: string;
-  imdbRating: string;
-  Poster: string;
 };
 
 type MovieProps = {
