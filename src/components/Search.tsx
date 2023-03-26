@@ -26,12 +26,19 @@ const GET_MOVIE_BY_TITLE = gql`
 function Search() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<SearchResults[]>([]);
-  
-  const handleSearch = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
+  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
     setSearchQuery(value);
-  
-    if (value) {
+    
+    // Clear the timeout if it has already been set
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+    
+    // Set a new timeout to make the request after a certain delay
+    setTimeoutId(setTimeout(async () => {
       const { searchMovieByTitle } = await client.request<{ searchMovieByTitle: SearchResults[] }>(
         GET_MOVIE_BY_TITLE,
         {
@@ -39,26 +46,22 @@ function Search() {
         }
       );
       setSearchResults(searchMovieByTitle);
-    } else {
-      setSearchResults([]);
-    }
+    }, 500)); // Change the delay time as needed
   };
-  
-  
-  
-  
+
   return (
     <div>
       <input placeholder='Search Movie...' value={searchQuery} onChange={handleSearch} />
       {searchResults !== null && searchResults.length !== 0 ? (
         searchResults.map((movie, movieIndex) => {
-            return <p key={movieIndex}>{movie.Title}</p>;
+          return <p key={movieIndex}>{movie.Title}</p>;
         })
-        ) : (
+      ) : (
         <p>Search some movies!</p>
-        )}
+      )}
     </div>
   );
 }
+
 
 export default Search;
