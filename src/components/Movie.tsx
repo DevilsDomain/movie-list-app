@@ -5,26 +5,33 @@ import { client } from '@/lib/client';
 import Link from 'next/link';
 
 
-export type Movie = {
+export type MovieTypes = {
   id: number;
   desc: string;
   finished: boolean;
   movie: {Title: string};
   imdb_id: string;
+  imdbID: string;
+  Title: string;
+  imdbRating: string;
+  Poster: string;
 };
 
 type MovieProps = {
   listId: number;
-  list: Movie[];
+  list: MovieTypes[];
 };
-const CREATE_TODO_MUTATION = gql`
-mutation AddTODO($listId: Int!, $desc: String!) {
-  addTODO(listId: $listId, desc: $desc) {
-    id
-    desc
-    finished
+const ADD_MOVIE = gql`
+mutation AddMovie($imdbId: String!, $listId: Int!) {
+    addMovie(imdbId: $imdbId, listId: $listId) {
+      movie {
+        Title
+        imdbRating
+        Poster
+        imdbID
+      }
+    }
   }
-}
 `;
 
 const REMOVE_MOVIE = gql`
@@ -37,17 +44,17 @@ mutation RemoveMovie($removeMovieId: Int!, $listId: Int!) {
 
 export const Movies = ({ list = [], listId }: MovieProps) => {
 
-const [movies, setMovies] = useState<Movie[]>(list);
-const onAddHandler = async (desc: string) => {
-  const res = await client.request<{ addTODO: Movie }>(CREATE_TODO_MUTATION, {
+const [movies, setMovies] = useState<MovieTypes[]>(list);
+const onAddHandler = async (imdb_id: string) => {
+  const res = await client.request<{ addMovie: MovieTypes }>(ADD_MOVIE, {
+    imdbId: imdb_id,
     listId: listId,
-    desc: desc,
   });
-  setMovies([...movies, res.addTODO]);
+  setMovies([...movies, res.addMovie]);
 };
 
   const onRemoveHandler = async (id: number) => {
-    const res = await client.request<{ removeMovie: Movie }>(REMOVE_MOVIE, {
+    const res = await client.request<{ removeMovie: MovieTypes }>(REMOVE_MOVIE, {
       listId: listId,
       removeMovieId: id,
     });
@@ -58,7 +65,6 @@ const onAddHandler = async (desc: string) => {
   
   return (
     <div>
-      <h2 className="text-center text-5xl mb-10">List items</h2>
       <ul>
         {movies.map((item) => (
           <li
@@ -68,17 +74,13 @@ const onAddHandler = async (desc: string) => {
 
             {!item.finished && (
               <div className="flex gap-2">
-                <button
-                  onClick={() => onRemoveHandler(item.id)}
-                >
-                    Remove
-                </button>
+                <button onClick={() => onRemoveHandler(item.id)}>Remove</button>
+                <button onClick={() => onAddHandler(item.imdbID)}>Add</button>
               </div>
             )}
           </li>
         ))}
       </ul>
-      {/* <AddTodo onAdd={onAddHandler} /> */}
     </div>
   );
 };

@@ -2,6 +2,7 @@
 import { gql } from 'graphql-request';
 import { client } from '@/lib/client';
 import React, { useState } from 'react';
+import { Movies } from './Movie';
 
 interface SearchResults {
   Poster: string;
@@ -23,7 +24,7 @@ const GET_MOVIE_BY_TITLE = gql`
   }
 `;
 
-function Search() {
+function Search({listId}) {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<SearchResults[]>([]);
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
@@ -48,14 +49,12 @@ function Search() {
       setSearchResults(searchMovieByTitle);
     }, 500)); // Change the delay time as needed
   };
-
+  console.log(searchResults)
   return (
-    <div>
+    <div className='flex flex-col'>
       <input placeholder='Search Movie...' value={searchQuery} onChange={handleSearch} />
       {searchResults !== null && searchResults.length !== 0 ? (
-        searchResults.map((movie, movieIndex) => {
-          return <p key={movieIndex}>{movie.Title}</p>;
-        })
+        <Movies listId={listId} list={searchResults}  />
       ) : (
         <p>Search some movies!</p>
       )}
