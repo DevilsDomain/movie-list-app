@@ -2,6 +2,7 @@ import React from 'react'
 import { gql } from 'graphql-request';
 import { client } from '@/lib/client';
 import Image from 'next/image';
+import 'src/app/movie/page.css';
 
 type MovieDetailsParam = {
   params: { imdbId: string };
@@ -44,14 +45,22 @@ async function  page({ params: { imdbId } }: MovieDetailsParam) {
     searchMovieByIdId: imdbId,
   });
   return (
-    <div>
-      Movie details {imdbId}
-      <Image src={searchMovieById.Poster} alt={searchMovieById.Title} height={200} width={130} />
-      <p>{searchMovieById.Title}</p>
-      <p>{searchMovieById.Actors}</p>
-
+    <div className='container'>
+        <div>
+            <Image src={searchMovieById.Poster} height={600} width={400} alt='' className='image'/>
+        </div>
+        <div className='info'>
+            <h1>{searchMovieById.Title}</h1>
+            <h3>{searchMovieById.Plot}</h3>
+            <h4>Rating: {searchMovieById.imdbRating}</h4>
+            <h4>Released: {searchMovieById.Year}</h4>
+            <h4>Actors: {searchMovieById.Actors}</h4>
+            <h4>Genre: {searchMovieById.Genre}</h4>
+            <h4>Directors: {searchMovieById.Director}</h4>
+        </div>
     </div>
   )
 }
+
 
 export default page
