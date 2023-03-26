@@ -23,7 +23,11 @@ query GetMovieListItems($listId: Int!) {
       id
       imdb_id
       movie {
+        Poster
         Title
+        Year
+        Type
+        imdbID
       }
       movie_list_id
     }

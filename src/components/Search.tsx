@@ -32,12 +32,12 @@ function Search({listId}) {
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     setSearchQuery(value);
-    
+  
     // Clear the timeout if it has already been set
     if (timeoutId) {
       clearTimeout(timeoutId);
     }
-    
+  
     // Set a new timeout to make the request after a certain delay
     setTimeoutId(setTimeout(async () => {
       const { searchMovieByTitle } = await client.request<{ searchMovieByTitle: SearchResults[] }>(
@@ -46,9 +46,21 @@ function Search({listId}) {
           title: value,
         }
       );
-      setSearchResults(searchMovieByTitle);
+      const transformedResults = searchMovieByTitle.map(result => {
+        return {
+          movie: {
+            Poster: result.Poster,
+            Title: result.Title,
+            Year: result.Year,
+            Type: result.Type,
+            imdbID: result.imdbID,
+          }
+        };
+      });
+      setSearchResults(transformedResults);
     }, 500)); // Change the delay time as needed
   };
+  
   console.log(searchResults)
   return (
     <div className='flex flex-col'>

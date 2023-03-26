@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { gql } from 'graphql-request';
 import { client } from '@/lib/client';
 import Link from 'next/link';
+import Image from 'next/image';
 
 
 export type MovieTypes = {
@@ -62,23 +63,24 @@ const onAddHandler = async (imdb_id: string) => {
 
     setMovies(newMovies);
   };
-  
+  console.log(movies);
   return (
     <div>
       <ul>
         {movies.map((item) => (
-          <li
-            key={item.id}
-          >
-            <Link href={'/movie/'+item.imdb_id}>{item.movie.Title}</Link>
+          <li key={item.id}>
+            <div>
+                <Image src={item.movie.Poster} alt={item.Title} height={100} width={70} />
+                <Link href={'/movie/'+item.imdb_id}>{item.movie.Title}</Link>
+                {!item.finished && (
+                <div className="flex gap-2">
+                    <button onClick={() => onRemoveHandler(item.id)}>Remove</button>
+                    <button onClick={() => onAddHandler(item.movie.imdbID)}>Add</button>
+                </div>
+                )}
+            </div>
 
-            {!item.finished && (
-              <div className="flex gap-2">
-                <button onClick={() => onRemoveHandler(item.id)}>Remove</button>
-                <button onClick={() => onAddHandler(item.imdbID)}>Add</button>
-              </div>
-            )}
-          </li>
+        </li>
         ))}
       </ul>
     </div>
