@@ -1,6 +1,8 @@
 import { gql } from 'graphql-request';
 import { client } from '@/lib/client';
 import { Movies } from '@/components/Movie';
+import Search from '@/components/Search';
+
 
 type MovieListParams = {
   params: { listId: string };
@@ -30,7 +32,6 @@ query GetMovieListItems($listId: Int!) {
 
 
 export default async function MyListPage({ params: { listId } }: MovieListParams) {
-  // TODO fetch list from server
   const { getMovieListItems } = await client.request<{ getMovieListItems: MovieListResponse[] }>(GET_MOVIE_LIST_ITEMS, {
     listId: parseInt(listId),
   });
@@ -44,6 +45,7 @@ export default async function MyListPage({ params: { listId } }: MovieListParams
         <Movies listId={parseInt(listId)} list={getMovieListItems}/> :
         <p>No movies in this list yet</p>
         }
+        <Search />
     </div>
   );
 }
