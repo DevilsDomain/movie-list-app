@@ -75,8 +75,13 @@ const onAddHandler = async (imdb_id: string) => {
                 <Link href={'/movie/'+item.movie.imdbID}>{item.movie.Title}</Link>
                 {!item.finished && (
                 <div className="flex gap-2">
-                    <button onClick={() => onRemoveHandler(item.id)}>Remove</button>
-                    <button onClick={() => onAddHandler(item.movie.imdbID)}>Add</button>
+                    <button onClick={() => onRemoveHandler(item.id)}
+                    className='rounded bg-red-700	text-slate-50	w-16	mb-3	'
+                    >Remove</button>
+
+                    <button onClick={() => onAddHandler(item.movie.imdbID)}
+                    className='bg-indigo-500 rounded text-slate-50 w-11	mb-3		'
+                    >Add</button>
                 </div>
                 )}
             </div>

@@ -45,10 +45,12 @@ export default async function MyListPage({ params: { listId } }: MovieListParams
   return (
 
     <div className="flex flex-row gap-x-44	">
-        <div className='flex flex-col ml-40	'>
+        <div className='flex flex-col ml-40'>
             <h2 className="text-5xl mb-10">List items</h2>
             {getMovieListItems.length !== 0 ?
-            <Movies listId={parseInt(listId)} list={getMovieListItems}/> :
+            <div className='flex flex row flex-wrap	w-48	'>
+                <Movies listId={parseInt(listId)} list={getMovieListItems}/> 
+            </div> :
             <p>No movies in this list yet</p>
             }
         </div>

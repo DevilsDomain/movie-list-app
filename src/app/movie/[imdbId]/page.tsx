@@ -50,7 +50,7 @@ async function  page({ params: { imdbId } }: MovieDetailsParam) {
             <Image src={searchMovieById.Poster} height={600} width={400} alt='' className='image'/>
         </div>
         <div className='info'>
-            <h1>{searchMovieById.Title}</h1>
+            <h1 className='text-4xl	'>{searchMovieById.Title}</h1>
             <h3>{searchMovieById.Plot}</h3>
             <h4>Rating: {searchMovieById.imdbRating}</h4>
             <h4>Released: {searchMovieById.Year}</h4>
