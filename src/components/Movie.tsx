@@ -71,7 +71,7 @@ const onAddHandler = async (imdb_id: string) => {
           <li key={item.id}>
             <div>
                 <Image src={item.movie.Poster} alt={item.Title} height={100} width={70} />
-                <Link href={'/movie/'+item.imdb_id}>{item.movie.Title}</Link>
+                <Link href={'/movie/'+item.movie.imdbID}>{item.movie.Title}</Link>
                 {!item.finished && (
                 <div className="flex gap-2">
                     <button onClick={() => onRemoveHandler(item.id)}>Remove</button>
