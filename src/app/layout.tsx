@@ -1,6 +1,7 @@
 import { Suspense } from 'react'
 import './globals.css'
 import Loading from './loading'
+import Navbar from '@/components/Navbar'
 
 export const metadata = {
   title: 'Create Next App',
@@ -16,6 +17,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Suspense fallback={<Loading />}>
+          <Navbar />
           {children}  
         </Suspense>
       </body>
