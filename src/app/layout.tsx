@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 import './globals.css'
-import Loading from './loading'
+import Loading from './Loading'
 
 export const metadata = {
   title: 'Create Next App',
