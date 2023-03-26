@@ -56,7 +56,6 @@ const onAddHandler = async (desc: string) => {
     setMovies(newMovies);
   };
   
-  console.log(movies)
   return (
     <div>
       <h2 className="text-center text-5xl mb-10">List items</h2>

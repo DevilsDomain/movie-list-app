@@ -28,22 +28,35 @@ function Search() {
   const [searchResults, setSearchResults] = useState<SearchResults[]>([]);
   
   const handleSearch = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { searchMovieByTitle } = await client.request<{ searchMovieByTitle: SearchResults[] }>(GET_MOVIE_BY_TITLE, {
-      title: event.target.value,
-    });
-    setSearchResults(searchMovieByTitle);
+    const { value } = event.target;
+    setSearchQuery(value);
+  
+    if (value) {
+      const { searchMovieByTitle } = await client.request<{ searchMovieByTitle: SearchResults[] }>(
+        GET_MOVIE_BY_TITLE,
+        {
+          title: value,
+        }
+      );
+      setSearchResults(searchMovieByTitle);
+    } else {
+      setSearchResults([]);
+    }
   };
+  
+  
+  
   
   return (
     <div>
       <input placeholder='Search Movie...' value={searchQuery} onChange={handleSearch} />
-      {searchResults.length !== 0 ? (
+      {searchResults !== null && searchResults.length !== 0 ? (
         searchResults.map((movie, movieIndex) => {
-          return <p key={movieIndex}>{movie.Title}</p>;
+            return <p key={movieIndex}>{movie.Title}</p>;
         })
-      ) : (
+        ) : (
         <p>Search some movies!</p>
-      )}
+        )}
     </div>
   );
 }
